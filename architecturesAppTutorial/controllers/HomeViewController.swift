@@ -13,6 +13,7 @@ class HomeViewController: BaseViewController {
     
     @IBOutlet weak var tableView: UITableView!
     var items: Array<Post> = Array()
+    var isReloadData = false
     
     
     override func viewDidLoad() {
@@ -20,7 +21,6 @@ class HomeViewController: BaseViewController {
         
         initViews()
     
-        
         
     }
     
@@ -32,8 +32,6 @@ class HomeViewController: BaseViewController {
         tableView.dataSource = self
         tableView.delegate = self
         apiContactList()
-//        let post = Post(title: "Hello", body: "Salom")
-//        apiPostUpdate(post: post)
         
     }
     
@@ -104,8 +102,9 @@ class HomeViewController: BaseViewController {
         
     }
     
-    func callEditViewController(){
+    func callEditViewController(post: Post){
         let vc = EditViewController(nibName: "EditViewController", bundle: nil)
+        vc.post = post
         let nc = UINavigationController(rootViewController: vc)
         self.present(nc, animated: true, completion: nil)
         
@@ -174,7 +173,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         return UIContextualAction(style: .normal, title: "Edit") { (action, swipeButtonView, completion) in
             print("Completed")
             completion(true)
-            self.callEditViewController()
+            self.callEditViewController(post: post)
             
         }
     }

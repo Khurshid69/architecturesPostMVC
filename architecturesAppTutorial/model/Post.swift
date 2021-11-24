@@ -8,9 +8,14 @@
 import Foundation
 
 struct Post: Codable {
+    
     var id: String? = ""
     var title: String? = ""
     var body: String? = ""
+    
+    init(){
+        
+    }
     
     init(title: String, body: String){
         self.title = title
